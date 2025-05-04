@@ -1,0 +1,21 @@
+/*
+Blink
+Turn the LEd off and on for one second and repeat
+*/
+
+//give a name to the LEd
+int led = 13;
+
+//setup routine that runs once when you press reset
+void setup(){
+    //initialize the digital pin
+pinMode(led, OUTPUT);
+}
+
+//the loop tha runs over and over
+void loop(){
+    digitalWrite(led, HIGH); //turn the LED on
+    display(1000); //wait for a second, this value can be changed
+    digitalWrite(led, LOW); //turn it off
+    display(1000); //wait for a second again
+}
