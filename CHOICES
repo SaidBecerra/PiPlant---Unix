@@ -1,0 +1,29 @@
+CHOICES File – Decision-Making Process
+Throughout the development of the plant watering system using a Raspberry Pi, we encountered several key decision points where we had to evaluate multiple options:
+
+1. Choosing the Raspberry Pi Model
+We had to decide which Raspberry Pi model to use for our project. Options included older models like the Raspberry Pi 3 and zero-based variants. However, we selected the Raspberry Pi 4. This decision was based on several factors:
+
+-Improved performance: The Pi 4 has significantly better processing power and RAM compared to earlier models.
+-Modern compatibility: It supports micro-HDMI output and has USB ports, which allowed for greater flexibility and faster communication.
+-Broader support: Most up-to-date libraries, OS images, and community support are optimized for the Pi 4, reducing the risk of compatibility issues.
+
+This decision allowed us to future-proof the project and ensured smooth integration with other components and tools.
+
+2. Selecting the Soil Moisture Sensor
+We explored both resistive and capacitive soil moisture sensors. Resistive sensors are widely available and cheaper, but they tend to corrode over time due to their exposed metal probes.
+We chose the capacitive soil moisture sensor for several reasons:
+
+-Increased durability: It does not corrode as quickly, making it better suited for long-term use.
+-Ease of integration: It was easier to interface with our Raspberry Pi using available libraries.
+-Convenience: The sensor was part of a complete watering kit, which included a water pump and tubing, reducing the need for sourcing parts individually.
+
+This choice improved reliability and reduced development time.
+
+3. Remote Access Method: SSH vs VNC
+To interact with the Raspberry Pi without needing a dedicated monitor, we considered two primary remote access methods: SSH (Secure Shell) and VNC (Virtual Network Computing).
+While SSH is lightweight and ideal for command-line interaction, we opted for VNC because:
+
+-Graphical interface: It allowed us to access the Pi’s full desktop environment, which was helpful for using GUI-based applications, especially during sensor testing and debugging.
+-User-friendliness: It was easier to set up and use, especially for team members unfamiliar with command-line interfaces.
+-Better for visual tasks: Since part of our testing involved real-time monitoring and interface interaction, a GUI-based tool made the process smoother.
