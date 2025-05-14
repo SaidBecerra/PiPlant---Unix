@@ -35,10 +35,10 @@ PiPlant is an automated plant watering system built on Raspberry Pi that monitor
   - Worked on the hardware and connecting the correct wires to the devices
   - Assambled the Raspberry Pi
 - Week 3: Refinement and presentation preparation
-  -Connected the Raspberry Pi with VNC Viewer
-  -Finalized the code to run the device
-  -Uploaded the neccessary documents
-  -Prepared the presentation
+  - Connected the Raspberry Pi with VNC Viewer
+  - Finalized the code to run the device
+  - Uploaded the neccessary documents
+  - Prepared the presentation
 
 ## License
 MIT License
