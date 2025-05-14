@@ -1,0 +1,137 @@
+# INSTALL
+
+## 1. Basic System Setup and Security
+
+### Hardware Requirements
+- Raspberry Pi 4
+- Arduino UNO
+- Capacitive soil moisture sensor
+- 4-channel relay module
+- Water pump
+- Breadboard and jumper wires
+- Power supply (for the pump)
+
+### Raspberry Pi Setup
+```bash
+# Update system packages
+sudo apt update
+sudo apt upgrade -y
+
+# Install required dependencies
+sudo apt install -y arduino python3 python3-pip git
+
+# Install Python libraries (for optional Pi-based monitoring)
+pip3 install pyserial matplotlib
+```
+
+### Arduino Wiring Configuration
+- **Soil Moisture Sensor**:
+  - VCC → 5V on Arduino
+  - GND → GND on Arduino
+  - DATA → A0 on Arduino
+
+- **Relay Module**:
+  - VCC → 5V on Arduino
+  - GND → GND on Arduino
+  - IN1 → Digital pin 8 on Arduino
+
+- **Pump Connection**:
+  - Power supply positive → COM terminal on relay
+  - NO terminal on relay → Pump positive lead
+  - Pump negative lead → Power supply negative
+
+### Security Configuration
+```bash
+# Change default password
+passwd
+
+# Configure SSH for key-based authentication
+sudo nano /etc/ssh/sshd_config
+# Change: PasswordAuthentication yes -> PasswordAuthentication no
+sudo systemctl restart ssh
+
+# Setup firewall
+sudo apt install -y ufw
+sudo ufw allow ssh
+sudo ufw enable
+```
+
+### Remote Access Setup
+```bash
+# Enable VNC Server
+sudo raspi-config
+# Navigate to: Interface Options -> VNC -> Yes
+
+# Configure VNC for remote access
+vncserver
+```
+
+## 2. Arduino Code Installation
+
+### Uploading the Code
+1. Connect Arduino to Raspberry Pi via USB
+2. Create Arduino sketch file:
+```bash
+mkdir -p ~/piplant
+nano ~/piplant/plant_watering.ino
+```
+3. Paste the following code:
+```cpp
+int sensor_pin = A0;
+int output_value;
+int pump = 8;
+int threshold = 5;
+
+void setup() {
+  Serial.begin(9600);
+  pinMode(sensor_pin, INPUT);
+  pinMode(pump, OUTPUT);
+  
+  digitalWrite(pump, HIGH);
+  
+  Serial.println("Reading From the Sensor ...");
+  delay(1000);
+}
+
+void loop() {
+  output_value = analogRead(sensor_pin);
+  output_value = map(output_value, 550, 0, 0, 100);
+  
+  Serial.print("Moisture : ");
+  Serial.print(output_value);
+  Serial.println("%");
+  
+  delay(1000);
+  
+  if (output_value < threshold) {
+    Serial.println("pump on for 1 second");
+    
+    digitalWrite(pump, LOW);
+    
+    delay(1000);
+    
+    digitalWrite(pump, HIGH);
+    
+    Serial.println("pump off");
+    delay(300000);
+  } else {
+    Serial.println("do not turn on pump");
+    
+    digitalWrite(pump, HIGH);
+    
+    delay(300000); // Wait 5 minutes
+  }
+}
+```
+4. Upload the code using Arduino IDE or command line:
+```bash
+# Install Arduino CLI if needed
+curl -fsSL https://raw.githubusercontent.com/arduino/arduino-cli/master/install.sh | sh
+
+# Add Arduino CLI to PATH
+export PATH=$PATH:~/bin
+
+# Upload code
+arduino-cli compile --fqbn arduino:avr:uno ~/piplant/plant_watering.ino
+arduino-cli upload -p /dev/ttyACM0 --fqbn arduino:avr:uno ~/piplant/plant_watering.ino
+```
