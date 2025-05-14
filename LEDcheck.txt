@@ -15,7 +15,7 @@ pinMode(led, OUTPUT);
 //the loop tha runs over and over
 void loop(){
     digitalWrite(led, HIGH); //turn the LED on
-    display(1000); //wait for a second, this value can be changed
+    delay(1000); //wait for a second, this value can be changed
     digitalWrite(led, LOW); //turn it off
-    display(1000); //wait for a second again
+    delay(1000); //wait for a second again
 }
