@@ -10,11 +10,11 @@ PiPlant is an automated plant watering system built on Raspberry Pi that monitor
 - Automatic startup on boot
 
 ## Technical Implementation
-- **Platform**: Raspberry Pi with Debian-based OS
-- **Sensors**: Both resistive and capacitive soil moisture sensors
-- **Watering Options**: Peristaltic pump or solenoid valve with water reservoir
-- **Software**: Python-based control system running as a daemon
-- **System Integration**: Uses Unix IPC, cron scheduling, and log rotation
+- **Platform**: Raspberry Pi 4 with Debian-based OS and Arduino UNO
+- **Sensors**: Capacitive soil moisture sensor
+- **Watering Options**: DC water pump with water reservoir
+- **Software**: C-based Arduino code for sensor reading and pump control
+- **System Integration**: Arduino handles main control logic with Raspberry Pi monitoring
 
 ## Project Structure
 - Moisture monitoring service
